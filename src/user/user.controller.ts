@@ -1,8 +1,10 @@
+import { SignupDto } from './dtos/signupDto';
 import { Controller, Get, Render, Post, Body } from '@nestjs/common';
+import { UserService } from './user.service';
 
 @Controller('user')
 export class UserController {
-
+    constructor(private readonly userService : UserService){}
     @Get("/signup")
     @Render("user/signup")
     getSignup() {}
@@ -12,7 +14,7 @@ export class UserController {
     getLogin(){}
 
     @Post("/signup")
-    postSignup(@Body() body: any){
-        return body
+    postSignup(@Body() body: SignupDto){
+        this.userService.postSignup(body) 
     }
 }

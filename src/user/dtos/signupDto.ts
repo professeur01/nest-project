@@ -1,8 +1,13 @@
+import { IsString, IsEmail, Length, IsNotEmpty } from 'class-validator';
 export class SignupDto {
+  @IsString()
+  @IsNotEmpty()
+  @Length(3, 50)
+  readonly username: 'string';
 
-   readonly username: "string"
+  @IsEmail()
+  readonly email: 'string';
 
-   readonly email: "string"
-
-   readonly password: "string"
+  @Length(8, 30)
+  readonly password: 'string';
 }
