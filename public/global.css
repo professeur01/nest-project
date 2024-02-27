@@ -1,0 +1,15 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: sans-serif;
+}
+.navigation{
+    display: flex;
+    background: gray;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+}
