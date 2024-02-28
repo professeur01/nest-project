@@ -3,15 +3,15 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
- readonly id: number;
+  id: number;
+
+  @Column({ nullable: false })
+   nom: string;
 
   @Column()
-  readonly username: string;
-
-  @Column({unique : true})
-  readonly email: string;
+   prenom: string;
 
   @Column()
- readonly password: string;
+   numeroTelephone: 'number';
 
 }
