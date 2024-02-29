@@ -1,7 +1,8 @@
 import { SignupDto } from './dtos/signupDto';
 import { loginDto } from './dtos/loginDto';
-import { Controller, Get, Render, Post, Body, Redirect } from '@nestjs/common';
+import { Controller, Get, Render, Post, Body, Redirect, UseInterceptors, ClassSerializerInterceptor, Session } from '@nestjs/common';
 import { UserService } from './user.service';
+import session from 'express-session';
 
 @Controller('user')
 export class UserController {
@@ -20,8 +21,12 @@ export class UserController {
        return {message : await this.userService.postSignup(body)} 
     }
     
+    @UseInterceptors(ClassSerializerInterceptor)
     @Post("/login")
-   async postLogin(@Body() body: loginDto){
-    return await this.userService.postLogin(body)
+   async postLogin(@Body() body: loginDto, @Session() session : Record<string, any>) {
+    const user = await this.userService.postLogin(body)
+     session.user = user;
+     session.connected = true;
+     return session;
    }
 }
