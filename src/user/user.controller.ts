@@ -1,4 +1,5 @@
 import { SignupDto } from './dtos/signupDto';
+import { loginDto } from './dtos/loginDto';
 import { Controller, Get, Render, Post, Body, Redirect } from '@nestjs/common';
 import { UserService } from './user.service';
 
@@ -20,7 +21,7 @@ export class UserController {
     }
     
     @Post("/login")
-   async postLogin(@Body() body: any){
-    return {message : await this.userService.postSignup(body)}
+   async postLogin(@Body() body: loginDto){
+    return await this.userService.postLogin(body)
    }
 }
