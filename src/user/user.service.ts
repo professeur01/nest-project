@@ -1,5 +1,5 @@
 import { loginDto } from './dtos/loginDto';
-import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { SignupDto } from './dtos/signupDto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -28,5 +28,8 @@ export class UserService {
       const {email , password} = body;
       const user = await this.usersRepository.findOne({where : {email : email}});
       if(!user) throw new NotFoundException("Email not found");
+      const match = await bcrypt.compare(password, user.password)
+      if (!match) throw new UnauthorizedException("Invalid Password");
+      
   }
 }
