@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { SignupDto } from './dtos/signupDto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -17,6 +17,7 @@ export class UserService {
         await this.usersRepository.save(user)
         return "User created!"
     } catch (error) {
+        throw new ConflictException(error.message);
         
     }
     
