@@ -22,6 +22,7 @@ export class UserController {
     }
     
     @UseInterceptors(ClassSerializerInterceptor)
+    @Redirect("/")
     @Post("/login")
    async postLogin(@Body() body: loginDto, @Session() session : Record<string, any>) {
     const user = await this.userService.postLogin(body)
